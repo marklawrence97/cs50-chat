@@ -6,10 +6,10 @@
         <div class="field" style="display: flex; justify-content: center; align-content: center; padding-top: 2%;">
             <h1>cs50 chat room</h1>
           </div>
-        <form class="ui form">
+        <form class="ui form" method="POST">
             <div class="inline field">
               <label class="light">Enter a display name: </label>
-              <input type="text" placeholder="Display name">
+              <input type="text" name="display" placeholder="Display name" required>
             </div>
             <div class="field" style="display: flex; justify-content: center; align-content: center; padding-top: 2%;">
               <input class="ui submit button" type="submit" value="Start chatting!"></input>

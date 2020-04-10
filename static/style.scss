@@ -1,10 +1,11 @@
-$dark: #200f21;
+$dark: rgb(32,15,33);
 $med-dark: #382039;
 $med-light: rgb(90,61,92);
 $light: #ffffff;
 
 $med-light-hover: rgba(90,61,92, 0.8);
-$light-hover: rgba(256,256,256,0.8);
+$light-hover: rgba(256,256,256,0.6);
+$dark-hove: rgba(32,15,33, 0.7);
 
 html, body {
     height: 100%;
@@ -80,13 +81,14 @@ nav {
     color: $light
 }
 
-nav a {
+a {
     color: $light;
     font-size: 2rem
 }
 
-nav a:hover {
-    color: $light-hover
+a:hover {
+    color: $light-hover;
+    cursor: pointer;
 }
 
 .content {
@@ -109,9 +111,81 @@ nav a:hover {
 
 .room {
     background-color: $med-light;
+    display: flex;
+    justify-content: space-between;
 }
 
 .details {
     display: flex;
     justify-content: flex-start;
+}
+
+.info {
+    margin-right: 3%;
+}
+
+.hide {
+    display: none;
+}
+
+.detailBox {
+    width: 80%;
+}
+
+.create {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-class:hover {
+    background-color: $dark-hove!important;
+}
+
+.roomBox {
+    display: flex;
+}
+
+.grid-box {
+    background-color: $med-dark;
+    width: 60%;
+    height: 100%;
+    padding: 2% 3%;
+}
+
+.chat-box {
+    display: flex;
+    background-color: $med-light;
+    width: 40%;
+    height: 100%;
+    padding: 2% 3%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.roomBox {
+    height: 90%;
+}
+
+.chat-message {
+    padding: 2%!important;
+    background-color: rgba(256,256,256,0.8)!important;
+    color: $dark!important;
+    margin-bottom: 3%!important;
+    margin-right: 5%!important;
+}
+
+.my-message {
+    @extend .chat-message;
+    margin-left: 5%!important;
+    background-color: $med-dark!important;
+    color: rgba(256,256,256,0.8)!important;
+}
+
+.send-message{
+    background: none!important;
+    color: $light-hover!important;
+}
+
+.send-message:hover {
+    color: $light!important;
 }

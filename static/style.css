@@ -78,13 +78,14 @@ nav {
   color: #ffffff;
 }
 
-nav a {
+a {
   color: #ffffff;
   font-size: 2rem;
 }
 
-nav a:hover {
-  color: rgba(255, 255, 255, 0.8);
+a:hover {
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
 }
 
 .content {
@@ -109,6 +110,12 @@ nav a:hover {
 
 .room {
   background-color: #5a3d5c;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .details {
@@ -118,5 +125,87 @@ nav a:hover {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
+}
+
+.info {
+  margin-right: 3%;
+}
+
+.hide {
+  display: none;
+}
+
+.detailBox {
+  width: 80%;
+}
+
+.create {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.button-class:hover {
+  background-color: rgba(32, 15, 33, 0.7) !important;
+}
+
+.roomBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.grid-box {
+  background-color: #382039;
+  width: 60%;
+  height: 100%;
+  padding: 2% 3%;
+}
+
+.chat-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #5a3d5c;
+  width: 40%;
+  height: 100%;
+  padding: 2% 3%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.roomBox {
+  height: 90%;
+}
+
+.chat-message, .my-message {
+  padding: 2% !important;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  color: #200f21 !important;
+  margin-bottom: 3% !important;
+  margin-right: 5% !important;
+}
+
+.my-message {
+  margin-left: 5% !important;
+  background-color: #382039 !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.send-message {
+  background: none !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.send-message:hover {
+  color: #ffffff !important;
 }
 /*# sourceMappingURL=style.css.map */

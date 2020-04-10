@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+
+{% block body %}
+<div class="form-container">
+    <div class="ui raised padded segment form">
+        <div class="field" style="display: flex; justify-content: center; align-content: center; padding-top: 2%;">
+            <h1>cs50 chat</h1>
+          </div>
+        <form class="ui form">
+            <div class="inline field">
+              <label class="light">Enter a channel name: </label>
+              <input type="text" placeholder="Room name">
+            </div>
+            <div class="field">
+                <div class="ui checkbox" >
+                    <input type="checkbox" tabindex="0">
+                    <label style="color: rgba(256,256,256,0.8)">Secure my channel with a password</label>
+                </div>
+            </div>
+            <div class="inline field hide">
+              <label class="light">Enter password: </label>
+              <input type="password" placeholder="Password">
+            </div>
+            <div class="field" style="display: flex; justify-content: center; align-content: center; padding-top: 2%;">
+              <input class="ui submit button" type="submit" value="Create room!"></input>
+            </div>
+          </form>
+    </div>
+</div>
+{% endblock %}

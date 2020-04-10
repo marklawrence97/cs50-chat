@@ -6,41 +6,49 @@
 <div class="content">
     <div class="user_list">
         <h3>who is online?</h3>
-        <div class="ui feed">
-            <div class="event">
-              <div class="label">
-                <i class="user circle icon" style="color: white;"></i>
-              </div>
-              <div class="content" style="margin-left: 1%;">
-                <div class="summary" style="color: white;">
-                  <p class="user" style="color: #f638dc;">
-                    Elliot Fu
-                  </p> signed in
-                  <div class="date" style="color: rgba(256,256,256,0.6);">
-                    1 Hour Ago
-                  </div>
+        <div class="ui feed" id="usernames">
+            {% for user in usernames %}
+                <div class="event">
+                    <div class="label">
+                        <i class="user circle icon" style="color: white;"></i>
+                    </div>
+                    <div class="content" style="margin-left: 1%;">
+                        <div class="summary" style="color: white;">
+                            <p class="user" style="color: #f638dc;">
+                                {{ user.display_name }}
+                            </p> signed in
+                            <div class="date" style="color: rgba(256,256,256,0.6);">
+                                1 Hour Ago
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
     <div class="chat_list">
-        <h3>Join a room:</h3>
+        <div class="ui raised segment create" style="background-color: #5a3d5c">
+            <h3>Create your own channel:</h3>
+                <button class="ui icon button button-class" style="background-color: #200f21; color: rgba(256,256,256,0.8)">
+                    <i class="plus icon"></i>
+                </button>
+        </div>
+        <h3>Join a channel:</h3>
         <div class="ui raised segment room" style="background-color: #5a3d5c;">
-            <div>
+            <div class="detailBox">
                 <h3>
                     Thursday Quiz
                 </h3>
                 <div class="details">
-                    <div class="ui">
+                    <div class="ui info">
                         <i class="users icon" style="color: rgba(256,256,256,0.8)"></i>
-                        <p style="color: rgba(256,256,256,0.8)">3 participants</p>
+                        <p style="color: rgba(256,256,256,0.8)"><span style="color: #f638dc; font-weight: bold;">3</span> participants</p>
                     </div>
-                    <div class="ui">
+                    <div class="ui info">
                         <i class="lock icon" style="color: rgba(256,256,256,0.8)"></i>
                         <p style="color: rgba(256,256,256,0.8)">This room requires a password</p>
                     </div>
-                    <div class="ui">
+                    <div class="ui info hide">
                         <i class="lock open icon" style="color: rgba(256,256,256,0.8)"></i>
                         <p style="color: rgba(256,256,256,0.8)">No password needed!</p>
                     </div>
@@ -48,7 +56,7 @@
             </div>
             <div>
                 <button class="ui right labeled icon button">
-                    <i class="right arrow icon"></i>
+                    <i class="arrow circle right icon" style="background-color: #200f21; color: rgba(256,256,256,0.8);"></i>
                     Join room
                 </button>
             </div>
