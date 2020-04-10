@@ -1,0 +1,59 @@
+{% extends "index.html" %}
+
+{% block body %}
+{% include "nav.html" %}
+
+<div class="content">
+    <div class="user_list">
+        <h3>who is online?</h3>
+        <div class="ui feed">
+            <div class="event">
+              <div class="label">
+                <i class="user circle icon" style="color: white;"></i>
+              </div>
+              <div class="content" style="margin-left: 1%;">
+                <div class="summary" style="color: white;">
+                  <p class="user" style="color: #f638dc;">
+                    Elliot Fu
+                  </p> signed in
+                  <div class="date" style="color: rgba(256,256,256,0.6);">
+                    1 Hour Ago
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="chat_list">
+        <h3>Join a room:</h3>
+        <div class="ui raised segment room" style="background-color: #5a3d5c;">
+            <div>
+                <h3>
+                    Thursday Quiz
+                </h3>
+                <div class="details">
+                    <div class="ui">
+                        <i class="users icon" style="color: rgba(256,256,256,0.8)"></i>
+                        <p style="color: rgba(256,256,256,0.8)">3 participants</p>
+                    </div>
+                    <div class="ui">
+                        <i class="lock icon" style="color: rgba(256,256,256,0.8)"></i>
+                        <p style="color: rgba(256,256,256,0.8)">This room requires a password</p>
+                    </div>
+                    <div class="ui">
+                        <i class="lock open icon" style="color: rgba(256,256,256,0.8)"></i>
+                        <p style="color: rgba(256,256,256,0.8)">No password needed!</p>
+                    </div>
+                </div> 
+            </div>
+            <div>
+                <button class="ui right labeled icon button">
+                    <i class="right arrow icon"></i>
+                    Join room
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

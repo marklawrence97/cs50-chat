@@ -1,0 +1,117 @@
+$dark: #200f21;
+$med-dark: #382039;
+$med-light: rgb(90,61,92);
+$light: #ffffff;
+
+$med-light-hover: rgba(90,61,92, 0.8);
+$light-hover: rgba(256,256,256,0.8);
+
+html, body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+// Enter display name page styling
+
+.form-container {
+    background-color: $dark;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form {
+    background-color: $med-dark!important;
+    color: $med-light!important;
+}
+
+.light {
+    color: $light!important;
+    font-size: 1.4rem!important;
+}
+
+.overlay {
+    height: 100%;
+    width: 25%;
+    margin-top: -100vh;
+    background-color: $med-dark;
+    z-index: 2;
+}
+
+.heading {
+    font-family: 'Markazi Text', serif;
+    color: $light;
+}
+
+h1 {
+    @extend .heading;
+    font-size: 5rem;
+}
+
+h3 {
+    @extend .heading;
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.submit {
+    color: $light!important;
+    background-color: $med-light!important;
+}
+
+.submit:hover {
+    background-color: $med-light-hover!important;
+}
+
+// List chat rooms styling
+
+nav {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 3%;
+    padding-right: 3%;
+    background-color: $dark;
+    color: $light
+}
+
+nav a {
+    color: $light;
+    font-size: 2rem
+}
+
+nav a:hover {
+    color: $light-hover
+}
+
+.content {
+    height: 90%;
+    width: 100%;
+    display: flex;
+}
+
+.user_list {
+    width: 25%;
+    background-color: $med-light;
+    padding: 2% 3%;
+}
+
+.chat_list {
+    width: 75%;
+    background-color: $med-dark;
+    padding: 2% 3%;
+}
+
+.room {
+    background-color: $med-light;
+}
+
+.details {
+    display: flex;
+    justify-content: flex-start;
+}
