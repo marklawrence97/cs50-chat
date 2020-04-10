@@ -91,6 +91,10 @@ a:hover {
     cursor: pointer;
 }
 
+.nav_link {
+    @extend a;
+}
+
 .content {
     height: 90%;
     width: 100%;

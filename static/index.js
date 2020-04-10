@@ -2,47 +2,61 @@ document.addEventListener("DOMContentLoaded", () => {
 
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
+    //If user is not signed in emit signal to redirect them to sign in page.
+    socket.on('connect', () => {
+
+        const userID = window.localStorage.getItem("userID");
+
+        if (!userID) {
+            socket.emit("No user id")
+        }
+    });
+
     socket.on('user login', data => {
         const usernames = data.usernames
-        window.localStorage.setItem("displayName", data.display_name)
-        
+        window.localStorage.setItem("userID", data.user_id)
+
         document.querySelector("#usernames").innerHTML = ""
 
-        usernames.forEach(i => {
-            displayUser(i["display_name"])
+        usernames.forEach(user => {
+            displayUser(user)
         });
     });
 
+    socket.on("sign out", () => {
+        window.localStorage.removeItem("userID")
+    });
+
     function displayUser(username) {
-        const eventDiv = document.createElement("div")
-        eventDiv.className = "event"
+        const eventDiv = document.createElement("div");
+        eventDiv.className = "event";
         
-        const labelDiv = document.createElement("div")
-        labelDiv.className = "label"
+        const labelDiv = document.createElement("div");
+        labelDiv.className = "label";
 
-        const icon = document.createElement("i")
-        icon.className = "user circle icon"
-        icon.style.color = "white"
+        const icon = document.createElement("i");
+        icon.className = "user circle icon";
+        icon.style.color = "white";
 
-        const contentDiv = document.createElement("div")
-        contentDiv.className = "content"
-        contentDiv.style.marginLeft = "1%"
+        const contentDiv = document.createElement("div");
+        contentDiv.className = "content";
+        contentDiv.style.marginLeft = "1%";
 
-        const summaryDiv = document.createElement("div")
-        summaryDiv.className = "summary"
-        summaryDiv.style.color = "white"
+        const summaryDiv = document.createElement("div");
+        summaryDiv.className = "summary";
+        summaryDiv.style.color = "white";
 
-        const user = document.createElement("p")
-        user.innerHTML = username
-        user.className = "user"
-        user.style.color = "#f638dc"
+        const user = document.createElement("p");
+        user.innerHTML = username;
+        user.className = "user";
+        user.style.color = "#f638dc";
 
-        const dateDiv = document.createElement("div")
-        dateDiv.innerHTML = "                                1 hour ago"
-        dateDiv.className = "date"
-        dateDiv.style.color = "rgba(256,256,256,0.6)"
+        const dateDiv = document.createElement("div");
+        dateDiv.innerHTML = " 1 Hour Ago";
+        dateDiv.className = "date";
+        dateDiv.style.color = "rgba(256,256,256,0.6)";
 
-        const p = document.createTextNode(" signed in")
+        const p = document.createTextNode(" signed in ");
 
         summaryDiv.append(user)
         summaryDiv.append(p)
@@ -58,4 +72,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.querySelector("#usernames").append(eventDiv)
     }
+
+    const userID = window.localStorage.getItem("userID")
+    console.log(userID)
 })
+
+const handleSignOut = () => {
+    const userID = window.localStorage.getItem("userID")
+    console.log(userID)
+    fetch(location.protocol + '//' + document.domain + ':' + location.port + "/sign_out", {
+        method: "POST",
+        headers: {
+            "userID": userID
+        }
+    }
+    )
+}

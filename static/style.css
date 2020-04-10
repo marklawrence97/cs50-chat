@@ -78,12 +78,12 @@ nav {
   color: #ffffff;
 }
 
-a {
+a, .nav_link {
   color: #ffffff;
   font-size: 2rem;
 }
 
-a:hover {
+a:hover, .nav_link:hover {
   color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
 }

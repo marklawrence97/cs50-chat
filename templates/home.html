@@ -5,7 +5,7 @@
 
 <div class="content">
     <div class="user_list">
-        <h3>who is online?</h3>
+        <h3>Recent user activity:</h3>
         <div class="ui feed" id="usernames">
             {% for user in usernames %}
                 <div class="event">
@@ -15,7 +15,7 @@
                     <div class="content" style="margin-left: 1%;">
                         <div class="summary" style="color: white;">
                             <p class="user" style="color: #f638dc;">
-                                {{ user.display_name }}
+                                {{ user }}
                             </p> signed in
                             <div class="date" style="color: rgba(256,256,256,0.6);">
                                 1 Hour Ago
