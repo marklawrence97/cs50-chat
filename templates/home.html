@@ -29,38 +29,44 @@
     <div class="chat_list">
         <div class="ui raised segment create" style="background-color: #5a3d5c">
             <h3>Create your own channel:</h3>
-                <button class="ui icon button button-class" style="background-color: #200f21; color: rgba(256,256,256,0.8)">
+                <a href={{url_for('create_room')}} class="ui icon button button-class" style="background-color: #200f21; color: rgba(256,256,256,0.8); line-height: 1.4285em;">
                     <i class="plus icon"></i>
-                </button>
+                </a>
         </div>
         <h3>Join a channel:</h3>
+        {% for room in channel_names %}
         <div class="ui raised segment room" style="background-color: #5a3d5c;">
             <div class="detailBox">
                 <h3>
-                    Thursday Quiz
+                    {{ room.name }}
                 </h3>
                 <div class="details">
                     <div class="ui info">
-                        <i class="users icon" style="color: rgba(256,256,256,0.8)"></i>
-                        <p style="color: rgba(256,256,256,0.8)"><span style="color: #f638dc; font-weight: bold;">3</span> participants</p>
+                        <i class="users icon" style="color: rgba(256,256,256,0.8);"></i>
+                        <p style="color: rgba(256,256,256,0.8); margin-top: 2%;"><span style="color: #f638dc; font-weight: bold;">3</span> participants</p>
                     </div>
-                    <div class="ui info">
-                        <i class="lock icon" style="color: rgba(256,256,256,0.8)"></i>
-                        <p style="color: rgba(256,256,256,0.8)">This room requires a password</p>
-                    </div>
-                    <div class="ui info hide">
-                        <i class="lock open icon" style="color: rgba(256,256,256,0.8)"></i>
-                        <p style="color: rgba(256,256,256,0.8)">No password needed!</p>
-                    </div>
+
+                    {% if room.password %}
+                        <div class="ui info">
+                            <i class="lock icon" style="color: rgba(256,256,256,0.8);"></i>
+                            <p style="color: rgba(256,256,256,0.8); margin-top: 2%;">This room requires a password</p>
+                        </div>
+                    {% else %}
+                        <div class="ui info">
+                            <i class="lock open icon" style="color: rgba(256,256,256,0.8);"></i>
+                            <p style="color: rgba(256,256,256,0.8); margin-top: 2%;">No password needed!</p>
+                        </div>
+                    {% endif %}
                 </div> 
             </div>
             <div>
-                <button class="ui right labeled icon button">
+                <a href={{url_for('room', room_id=room.room_id)}} class="ui right labeled icon button">
                     <i class="arrow circle right icon" style="background-color: #200f21; color: rgba(256,256,256,0.8);"></i>
                     Join room
-                </button>
+                </a>
             </div>
         </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

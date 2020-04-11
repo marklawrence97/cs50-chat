@@ -13,11 +13,17 @@ Session(app)
 app.config["SECRET_KEY"] = "SECRET"
 socketio = SocketIO(app, manage_session=False)
 
-user_dict = {}
-usernames = []
-
 global user_id
+global user_dict
+global room_id
+global channel_dict
+
+user_dict = {}
+channel_dict = {}
+channel_names = []
+usernames = []
 user_id = 0
+room_id = 999
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -32,6 +38,7 @@ def index():
         usernames = [user_dict[key]["display_name"] for key in user_dict.keys()]
         socketio.emit("user login", {"usernames": usernames, "user_id": user_id})
         session["isAuthenticated"] = True
+        session["userID"] = user_id
         return redirect(url_for('home'))
     return render_template("signin.html")
 
@@ -39,12 +46,36 @@ def index():
 def home():
     if session.get("isAuthenticated"):
         usernames = [user_dict[key]["display_name"] for key in user_dict.keys()]
-        return render_template("home.html", usernames=usernames)
+        try:
+            channel_names = [
+                {
+                "name": channel_dict[key]["room_name"], 
+                "password": channel_dict[key]["password"],
+                "room_id": key
+                } for key in channel_dict]
+        except KeyError:
+            channel_names = []
+        return render_template("home.html", usernames=usernames, channel_names=channel_names)
     return redirect(url_for('index')) 
 
-@app.route("/create-room")
+@app.route("/create-room", methods=["GET", "POST"])
 def create_room():
     if session.get("isAuthenticated"):
+        if request.method == "POST":
+            global room_id
+            room_name = request.form["room"]
+            room_id += 1
+            try:
+                password = request.form["password"]
+            except:
+                password = False
+            participants = 1
+            channel_dict[room_id] = {
+                "room_name": room_name,
+                "password": password,
+                "participants": participants
+            }
+            return redirect(url_for('room', room_id=room_id))
         return render_template("createRoom.html")
     return redirect(url_for('index')) 
 
@@ -53,11 +84,6 @@ def room(room_id):
     if session.get("isAuthenticated"):
         return render_template("room.html", room_id=room_id)
     return redirect(url_for('index')) 
-
-@socketio.on("No user id")
-def handleNotSignedIn():
-    # session["isAuthenticated"] = False
-    pass
 
 @app.route("/sign_out", methods=["POST"])
 def signOut():

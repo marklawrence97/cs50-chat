@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     socket.on('connect', () => {
 
         const userID = window.localStorage.getItem("userID");
-
         if (!userID) {
             socket.emit("No user id")
         }
@@ -72,19 +71,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.querySelector("#usernames").append(eventDiv)
     }
-
-    const userID = window.localStorage.getItem("userID")
-    console.log(userID)
 })
 
 const handleSignOut = () => {
     const userID = window.localStorage.getItem("userID")
-    console.log(userID)
     fetch(location.protocol + '//' + document.domain + ':' + location.port + "/sign_out", {
         method: "POST",
         headers: {
             "userID": userID
         }
+    })
+};
+
+const handleAddPassword = () => {
+    const checkBox = document.querySelector("#passwordCheck")
+    const password = document.querySelector("#password")
+    if (checkBox.checked) {
+        password.className = "inline field"
+    } else {
+        password.className = "inline field hide"
     }
-    )
 }
