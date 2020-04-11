@@ -1,39 +1,41 @@
 <div class="chat-box">
-    <div class="ui feed" id="messageFeed" style="overflow-y: scroll; overflow-x: visible;">
-        {% for message in room_info.messages %} 
-        {% if message.user_id != userID %}
-        <div class="ui event padded raised segment chat-message">
-        {% else %}
-        <div class="ui event padded raised segment my-message">
-        {% endif %}
-            <div class="label">
-                {% if message.user_id != userID %}
-                <i class="user circle icon" style="color: rgb(32,15,33);"></i>
-                {% else %}
-                <i class="user circle icon" style="color: rgba(256,256,256,0.8);"></i>
-                {% endif %}
-            </div>
-            <div class="content" style="margin-left: 1%;">
-                {% if message.user_id != userID %}
-                <div class="summary" style="color: rgb(32,15,33);">
-                {% else %}
-                <div class="summary" style="color: rgba(256,256,256,0.8);">
-                {% endif %}
-                    <p class="user" style="color: #f638dc;">
-                    {{message.user_name}}
-                    </p> - today at 11:45
-                    {% if message.user_id == userID %}
-                    <div class="extra text" style="color: rgba(256,256,256,0.6); font-weight: normal;">
+    <div class="ui container" id="messageFeed" style="overflow-y: scroll; overflow-x: hidden; padding-right: 6%;">
+        <div class="ui feed">
+            {% for message in room_info.messages %} 
+            {% if message.user_id != userID %}
+            <div class="ui event padded raised segment chat-message">
+            {% else %}
+            <div class="ui event padded raised segment my-message">
+            {% endif %}
+                <div class="label">
+                    {% if message.user_id != userID %}
+                    <i class="user circle icon" style="color: rgb(32,15,33);"></i>
                     {% else %}
-                    <div class="extra text">
+                    <i class="user circle icon" style="color: rgba(256,256,256,0.8);"></i>
                     {% endif %}
-                        {{message.message}}
+                </div>
+                <div class="content" style="margin-left: 1%;">
+                    {% if message.user_id != userID %}
+                    <div class="summary" style="color: rgb(32,15,33);">
+                    {% else %}
+                    <div class="summary" style="color: rgba(256,256,256,0.8);">
+                    {% endif %}
+                        <p class="user" style="color: #f638dc;">
+                        {{message.user_name}}
+                        </p> - today at 11:45
+                        {% if message.user_id == userID %}
+                        <div class="extra text" style="color: rgba(256,256,256,0.6); font-weight: normal;">
+                        {% else %}
+                        <div class="extra text">
+                        {% endif %}
+                            {{message.message}}
+                        </div>
                     </div>
                 </div>
             </div>
+            {% endfor %} 
         </div>
-        {% endfor %} 
-    </div>
+        </div>
     <div class="ui form" id="messageForm" style="margin-bottom: 0%;">
         <div class="field" style="display: flex;">
             <textarea rows="2" id="message" name="message" placeholder="Type message..."></textarea>

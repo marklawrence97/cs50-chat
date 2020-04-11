@@ -175,12 +175,12 @@ a:hover {
     background-color: rgba(256,256,256,0.8)!important;
     color: $dark!important;
     margin-bottom: 3%!important;
-    margin-right: 5%!important;
+    margin-right: 4%!important;
 }
 
 .my-message {
     @extend .chat-message;
-    margin-left: 5%!important;
+    margin-left: 4%!important;
     background-color: $med-dark!important;
     color: rgba(256,256,256,0.8)!important;
 }
