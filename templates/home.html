@@ -3,7 +3,7 @@
 {% block body %}
 {% include "nav.html" %}
 
-<div class="content">
+<div class="content" onload=handleSignIn({{userID}})>
     <div class="user_list">
         <h3>Recent user activity:</h3>
         <div class="ui feed" id="usernames">

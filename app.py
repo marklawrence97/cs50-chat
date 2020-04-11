@@ -37,6 +37,7 @@ def index():
         }
         usernames = [user_dict[key]["display_name"] for key in user_dict.keys()]
         socketio.emit("user login", {"usernames": usernames, "user_id": user_id})
+        print(user_id)
         session["isAuthenticated"] = True
         session["userID"] = user_id
         return redirect(url_for('home'))
@@ -45,6 +46,7 @@ def index():
 @app.route("/home")
 def home():
     if session.get("isAuthenticated"):
+        userID = session.get("userID")
         usernames = [user_dict[key]["display_name"] for key in user_dict.keys()]
         try:
             channel_names = [
@@ -55,7 +57,7 @@ def home():
                 } for key in channel_dict]
         except KeyError:
             channel_names = []
-        return render_template("home.html", usernames=usernames, channel_names=channel_names)
+        return render_template("home.html", usernames=usernames, channel_names=channel_names, userID=userID)
     return redirect(url_for('index')) 
 
 @app.route("/create-room", methods=["GET", "POST"])
@@ -105,12 +107,19 @@ def signOut():
 
 @socketio.on("message sent")
 def message_sent(data):
+    user = session.get("userID")
     channel_dict[int(data['room'])]['messages'].append({
         "user_id": int(data['userID']),
         "user_name": data['username'],
         "message": data['message']
     })
-    print(channel_dict)
+    socketio.emit("new message", {
+        "user": user,
+        "user_id": int(data['userID']),
+        "user_name": data['username'],
+        "message": data['message'],
+        "room": int(data['room'])
+    }, broadcast="true")
 
 if __name__ == "__main__":
     socketio.run(app)

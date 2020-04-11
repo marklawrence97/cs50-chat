@@ -1,13 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-
-    //If user is not signed in emit signal to redirect them to sign in page.
-    socket.on('connect', () => {
-
-        const userID = window.localStorage.getItem("userID");
-        if (!userID) {
-            socket.emit("No user id")
-        }
-    });
+    try {
+        var objDiv = document.querySelector("#messageFeed");
+        objDiv.scrollTop = objDiv.scrollHeight;
+    } catch (error) {
+        // If not the right page...do nothing!
+    }
 
     socket.on('user login', data => {
         const usernames = data.usernames
@@ -15,9 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.querySelector("#usernames").innerHTML = ""
 
-        usernames.forEach(user => {
-            displayUser(user)
-        });
+        try {
+            usernames.forEach(user => {
+                displayUser(user)
+            });
+        } catch(e) {
+            // Don't do anything if not on home page
+        }
     });
 
     socket.on("sign out", () => {
@@ -26,12 +27,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const messageForm = document.querySelector("#messageForm")
 
-    messageForm.addEventListener("keyup", function(event) {
-        if (event.keyCode === 13) {
-            event.preventDefault();
-            document.getElementById("sendMessage").click();
+    try {
+        messageForm.addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("sendMessage").click();
+            }
+        })
+    } catch (error) {
+        // If there message form doesn't exist on this page...don't do anything
+    }
+
+
+    socket.on("new message", (data) => {
+        let roomURL = location.pathname.split('/')
+        const room = roomURL[roomURL.length -1]
+        const userID = parseInt(localStorage.getItem("userID"))
+        if (data.room === parseInt(room) && data.user !== userID) {
+            createMessage(data.user_name, false, data.message)
         }
+        var objDiv = document.querySelector("#messageFeed");
+        objDiv.scrollTop = objDiv.scrollHeight;
     })
+
+    // createMessage("test", false, "boo!")
 
     function displayUser(username) {
         const eventDiv = document.createElement("div");
@@ -182,4 +201,8 @@ function createMessage(username, me, message) {
     summaryDiv.appendChild(messageDiv)
 
     document.querySelector('#messageFeed').appendChild(chatDiv)
+}
+
+function handleSignIn(userID) {
+    window.localStorage.setItem("userID", userID)
 }
