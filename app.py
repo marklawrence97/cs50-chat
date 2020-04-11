@@ -29,7 +29,7 @@ room_id = 999
 def index():
     if request.method == "POST":
         global user_id
-        display_name = request.form["display"]
+        display_name = request.form["display"].strip()
         user_id += 1
         user_dict[user_id] = {
             "display_name": display_name,
@@ -73,7 +73,12 @@ def create_room():
             channel_dict[room_id] = {
                 "room_name": room_name,
                 "password": password,
-                "participants": participants
+                "participants": participants,
+                "messages": [{
+                    "user_id": 0,
+                    "user_name": "cs50 Chat",
+                    "message": "Welcome to cs50 Chat! "
+                }]
             }
             return redirect(url_for('room', room_id=room_id))
         return render_template("createRoom.html")
@@ -82,7 +87,9 @@ def create_room():
 @app.route("/room/<int:room_id>")
 def room(room_id):
     if session.get("isAuthenticated"):
-        return render_template("room.html", room_id=room_id)
+        userID = session.get("userID")
+        username = user_dict[userID]["display_name"]
+        return render_template("room.html", room_info=channel_dict[room_id], userID=userID, username=username)
     return redirect(url_for('index')) 
 
 @app.route("/sign_out", methods=["POST"])
@@ -95,6 +102,15 @@ def signOut():
         pass
     session["isAuthenticated"] = False
     return redirect(url_for("index"))
+
+@socketio.on("message sent")
+def message_sent(data):
+    channel_dict[int(data['room'])]['messages'].append({
+        "user_id": int(data['userID']),
+        "user_name": data['username'],
+        "message": data['message']
+    })
+    print(channel_dict)
 
 if __name__ == "__main__":
     socketio.run(app)
