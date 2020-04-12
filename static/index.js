@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const userID = parseInt(localStorage.getItem("userID"))
+    console.log(userID)
+
     try {
         var objDiv = document.querySelector("#messageFeed");
         objDiv.scrollTop = objDiv.scrollHeight;
@@ -8,11 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     socket.on('user login', data => {
         const usernames = data.usernames
-        window.localStorage.setItem("userID", data.user_id)
-
-        document.querySelector("#usernames").innerHTML = ""
 
         try {
+            document.querySelector("#usernames").innerHTML = ""
             usernames.forEach(user => {
                 displayUser(user)
             });
@@ -21,9 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    socket.on("sign out", () => {
-        window.localStorage.removeItem("userID")
-    });
+    // socket.on("sign out", () => {
+    //     window.localStorage.removeItem("userID")
+    // });
 
     const messageForm = document.querySelector("#messageForm")
 
@@ -43,6 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
         let roomURL = location.pathname.split('/')
         const room = roomURL[roomURL.length -1]
         const userID = parseInt(localStorage.getItem("userID"))
+        console.log(userID)
+        console.log(data.user)
         if (data.room === parseInt(room) && data.user !== userID) {
             createMessage(data.user_name, false, data.message)
         }
@@ -96,6 +99,31 @@ document.addEventListener("DOMContentLoaded", () => {
         eventDiv.appendChild(contentDiv)
 
         document.querySelector("#usernames").append(eventDiv)
+    }
+
+    try {
+        document.querySelector('#get-access').addEventListener('click', async function init(e) {
+            try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: {
+                    mandatory: { minAspectRatio: 1.333, maxAspectRatio: 1.334 },
+                    optional: [
+                      { minFrameRate: 60 },
+                      { maxWidth: 640 },
+                      { maxHeigth: 480 }
+                    ]
+                  }
+            })
+            document.querySelector('video').srcObject = stream
+            document.querySelector('#get-access').setAttribute('hidden', true)
+
+            } catch (error) {
+            alert(`${error.name}`)
+            console.error(error)
+            }
+        })
+    } catch (e) {
+        console.log("not on this page")
     }
 })
 
@@ -200,9 +228,11 @@ function createMessage(username, me, message) {
     summaryDiv.append(p)
     summaryDiv.appendChild(messageDiv)
 
-    document.querySelector('#messageFeed').appendChild(chatDiv)
+    document.querySelector('#messages').appendChild(chatDiv)
 }
 
 function handleSignIn(userID) {
     window.localStorage.setItem("userID", userID)
+    console.log("called")
 }
+

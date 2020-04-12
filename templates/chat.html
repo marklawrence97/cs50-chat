@@ -1,6 +1,6 @@
 <div class="chat-box">
     <div class="ui container" id="messageFeed" style="overflow-y: scroll; overflow-x: hidden; padding-right: 6%;">
-        <div class="ui feed">
+        <div class="ui feed" id="messages">
             {% for message in room_info.messages %} 
             {% if message.user_id != userID %}
             <div class="ui event padded raised segment chat-message">
